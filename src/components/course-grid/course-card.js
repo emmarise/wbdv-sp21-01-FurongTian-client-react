@@ -22,7 +22,6 @@ const CourseCard = (props) => {
                         value={courseTitle}
                         className="form-control"/>
                 }
-
                 <p className="card-text">Some description</p>
                 {
                     !isEditing &&

@@ -71,9 +71,6 @@ const CourseRow = (props) => {
                         }
                         props.updateCourse(newCourse);
                         setEditing(false);
-                        // setCourseTitle(newCourse.title);
-                        // setOwner(newCourse.owner);
-                        // setlastModified(newCourse.lastModified);
                     }} >
                         <i class="fas fa-check" style={{
                             color: 'green'

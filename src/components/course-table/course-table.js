@@ -32,13 +32,13 @@ export default class CourseTable extends React.Component {
                 <table className="table">
                     <tbody>
                     {
-
-                        this.props.courses.map((course, ndx) =>
+// no ndx needed here, strange
+                        this.props.courses.map((course) =>
                             <CourseRow
+                                key={course._id}
+                                course={course}
                                 updateCourse={this.props.updateCourse}
                                 deleteCourse={this.props.deleteCourse}
-                                key={ndx}
-                                course={course}
                             />)
                     }
                     </tbody>
