@@ -8,6 +8,7 @@ import courseService from "../../services/course-service";
 
 class CourseManager extends React.Component {
     state = {
+        title: "example title",
         courses: [],
         date: new Date(),
     }
@@ -27,8 +28,8 @@ class CourseManager extends React.Component {
 
     addCourse = () => {
         const newCourse = {
-            title: "#new-course-title",
-            owner: "New Owner",
+            title: this.state.title,
+            owner: "ME",
             lastModified: this.state.date.getFullYear() + "/" + this.state.date.getMonth()
                 + "/" + this.state.date.getDate()
         }
@@ -43,17 +44,36 @@ class CourseManager extends React.Component {
                 })))
     }
 
-    deleteCourse = (courseToDelete) => {
-        courseService.deleteCourse(courseToDelete._id)
+    // deleteCourse = (courseToDelete) => {
+    //     courseService.deleteCourse(courseToDelete._id)
+    //         .then(status => {
+    //             this.setState((prevState) => ({
+    //                 courses: prevState.courses.filter
+    //                 (course => course._id !== courseToDelete._id)
+    //             }))
+    //         })
+    // }
+    deleteCourse = (course) => {
+        // console.log(course)
+        // alert("delete course " + course._id)
+        courseService.deleteCourse(course._id)
             .then(status => {
+                // this.setState({
+                //   courses: this.state.courses.filter(c => c._id !== course._id)
+                // })
                 this.setState((prevState) => ({
-                    ...prevState,
-                    courses: prevState.courses.filter
-                    (course => course !== courseToDelete)
+                    courses: prevState.courses.filter(c => c._id !== course._id)
                 }))
+                // console.log(this.state)
             })
     }
 
+    updateInputValue = (evt) => {
+        this.setState({
+            title: evt.target.value
+        });
+
+    }
 
     render() {
         return(
@@ -72,6 +92,7 @@ class CourseManager extends React.Component {
                            id="new-course-title"
                            value={this.title}
                            // onChange={}
+                           onChange={this.updateInputValue}
                     />
                     <span className="input-group-append">
                         <button className="mx-2 btn btn-danger rounded-circle"

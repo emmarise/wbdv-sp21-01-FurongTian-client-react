@@ -5,7 +5,7 @@ import {Link} from "react-router-dom";
 const CourseGrid = (props) =>
     <div>
         <div className="row justify-content-end">
-
+            {/*{console.log(props.courses)}*/}
             <div className="col-auto align-self-center">
                 <button type="button" className="btn">
                     <i className="fas fa-2x fa-folder"></i>

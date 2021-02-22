@@ -13,7 +13,7 @@ export default class CourseTable extends React.Component {
             <div>
 
                 <div className="row justify-content-end">
-
+                    {/*{console.log(this.props.courses)}*/}
                     <div className="col-auto align-self-center">
                         <button type="button" className="btn">
                             <i className="fas fa-2x fa-folder"></i>
@@ -32,6 +32,7 @@ export default class CourseTable extends React.Component {
                 <table className="table">
                     <tbody>
                     {
+
                         this.props.courses.map((course, ndx) =>
                             <CourseRow
                                 updateCourse={this.props.updateCourse}
