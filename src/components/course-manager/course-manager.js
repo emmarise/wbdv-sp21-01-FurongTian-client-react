@@ -13,6 +13,12 @@ class CourseManager extends React.Component {
         date: new Date(),
     }
 
+    constructor(props) {
+        super(props);
+
+    }
+
+
     updateCourse = (course) => {
         courseService.updateCourse(course._id, course)
             .then(status => this.setState((prevState) => ({
@@ -27,6 +33,7 @@ class CourseManager extends React.Component {
             .then(courses => this.setState({courses}))
 
     addCourse = () => {
+        document.getElementById("new-course-title").value=""
         const newCourse = {
             title: this.state.title,
             owner: "ME",
@@ -42,29 +49,18 @@ class CourseManager extends React.Component {
                         ...prevState.courses
                     ]
                 })))
+        // does not clear the input!!
+        // document.getElementById("new-course-title").value=""
     }
 
-    // deleteCourse = (courseToDelete) => {
-    //     courseService.deleteCourse(courseToDelete._id)
-    //         .then(status => {
-    //             this.setState((prevState) => ({
-    //                 courses: prevState.courses.filter
-    //                 (course => course._id !== courseToDelete._id)
-    //             }))
-    //         })
-    // }
     deleteCourse = (course) => {
         // console.log(course)
         // alert("delete course " + course._id)
         courseService.deleteCourse(course._id)
             .then(status => {
-                // this.setState({
-                //   courses: this.state.courses.filter(c => c._id !== course._id)
-                // })
                 this.setState((prevState) => ({
                     courses: prevState.courses.filter(c => c._id !== course._id)
                 }))
-                // console.log(this.state)
             })
     }
 
@@ -91,7 +87,6 @@ class CourseManager extends React.Component {
                            placeholder="New Course Title"
                            id="new-course-title"
                            value={this.title}
-                           // onChange={}
                            onChange={this.updateInputValue}
                     />
                     <span className="input-group-append">
@@ -126,7 +121,7 @@ class CourseManager extends React.Component {
                     </Route>
 
                     <Route path="/courses/editor"
-                           render={(props) => <CourseEditor {...props}/>}>
+                           render={(props) => <CourseEditor props={props}/>}>
                     </Route>
                 </div>
             </div>

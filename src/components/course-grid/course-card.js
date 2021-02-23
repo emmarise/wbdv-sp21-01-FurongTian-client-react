@@ -12,12 +12,13 @@ const CourseCard = (props) => {
                 {
                     !isEditing &&
                     <Link to="/courses/editor">
-                        <h4 className="card-title">{courseTitle}</h4>
+                        <h4 className="card-title editedCourseTitle">{courseTitle}</h4>
                     </Link>
                 }
                 {
                     isEditing &&
                     <input
+
                         onChange={(event) => setCourseTitle(event.target.value)}
                         value={courseTitle}
                         className="form-control"/>
@@ -26,12 +27,12 @@ const CourseCard = (props) => {
                 {
                     !isEditing &&
                     <Link to="/courses/editor">
-                        <a className="btn mx-1 btn-primary">{courseTitle}</a>
+                        <a className="btn mx-1 btn-primary editedCourseTitle">{courseTitle}</a>
                     </Link>
                 }
                 {
                     isEditing &&
-                    <button className="btn mx-1 btn-primary" disabled>{courseTitle}
+                    <button  className="btn mx-1 btn-primary editedCourseTitle" disabled>{courseTitle}
                     </button>
                 }
                 <i onClick={() => props.deleteCourse(props.course)} className="fas fa-trash"></i>
@@ -59,6 +60,8 @@ const CourseCard = (props) => {
                 {
                     isEditing &&
                     <button className="btn" onClick={() => {
+                        document.getElementsByClassName("editedCourseTitle")[0].innerHTML = "";
+                        console.log(document.getElementsByClassName("editedCourseTitle")[0].innerHTML)
                         props.deleteCourse(props.course._id);
                         setEditing(false);
                     }}>
