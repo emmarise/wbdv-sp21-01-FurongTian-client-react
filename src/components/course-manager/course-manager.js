@@ -13,11 +13,6 @@ class CourseManager extends React.Component {
         date: new Date(),
     }
 
-    constructor(props) {
-        super(props);
-
-    }
-
 
     updateCourse = (course) => {
         courseService.updateCourse(course._id, course)
@@ -67,7 +62,6 @@ class CourseManager extends React.Component {
         this.setState({
             title: evt.target.value
         });
-
     }
 
     render() {

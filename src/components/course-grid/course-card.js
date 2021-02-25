@@ -50,6 +50,7 @@ const CourseCard = (props) => {
                             title: courseTitle
                         }
                         props.updateCourse(newCourse);
+                        // 很重要！！
                         setEditing(false);
                     }} >
                         <i class="fas fa-check" style={{
@@ -60,12 +61,9 @@ const CourseCard = (props) => {
                 {
                     isEditing &&
                     <button className="btn" onClick={() => {
+                        // 很重要！！
                         setEditing(false);
                     }}>
-                        {/*<i className="fas fa-times"  style={{*/}
-                        {/*    color: 'red'*/}
-                        {/*}}></i>*/}
-
                         <i className="fas fa-times"  style={{
                             color: 'red'
                         }}></i>
