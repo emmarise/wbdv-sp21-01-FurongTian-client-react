@@ -33,6 +33,7 @@ class CourseManager extends React.Component {
             .then(courses => this.setState({courses}))
 
     addCourse = () => {
+        // first set empty title, to clear input
         document.getElementById("new-course-title").value=""
         const newCourse = {
             title: this.state.title,
@@ -49,8 +50,6 @@ class CourseManager extends React.Component {
                         ...prevState.courses
                     ]
                 })))
-        // does not clear the input!!
-        // document.getElementById("new-course-title").value=""
     }
 
     deleteCourse = (course) => {

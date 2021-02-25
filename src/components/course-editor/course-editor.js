@@ -1,12 +1,10 @@
 import React from 'react'
-import {Link} from "react-router-dom";
+import {useHistory, Link} from "react-router-dom";
 
-// const CourseEditor = ({props}) =>
-const CourseEditor = ({props}) =>
-    <div>
-        {JSON.stringify(props)}
-        <i onClick={() => props.history.goBack()}
-           className="fas fa-times float-right"></i>
+const CourseEditor = (props) => {
+    let history = useHistory();
+    return(<div>
+        {/*{JSON.stringify(props)}*/}
 
         <div className="container">
 
@@ -14,9 +12,9 @@ const CourseEditor = ({props}) =>
                 <div className="col-4">
                     <ul className="nav nav-tabs">
                         <li className="nav-item">
-                            <Link to='/' className="nav-link" href="../index.html">
+                            <button className="btn" onClick={() => history.goBack()}>
                                 <i className="fas fa-times"></i>
-                            </Link>
+                            </button>
                         </li>
                         <li className="nav-item">
                             <Link to='/' className="nav-link disabled">CS5610 - WebDev</Link>
@@ -122,6 +120,7 @@ const CourseEditor = ({props}) =>
             </div>
         </div>
 
-    </div>
+    </div>)
+}
 
 export default CourseEditor

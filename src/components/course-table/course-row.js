@@ -46,6 +46,8 @@ const CourseRow = (props) => {
                 {
                     isEditing &&
                     <input
+                        id="editedCourseTitle"
+                        value={lastModified}
                         onChange={(event) => setlastModified(event.target.value)}
                         value={lastModified}
                         className="form-control"/>
@@ -80,10 +82,9 @@ const CourseRow = (props) => {
                 {
                     isEditing &&
                     <button className="btn" onClick={() => {
-                        props.deleteCourse(props.course._id);
                         setEditing(false);
                     }}>
-                        <i className="fas fa-times" style={{
+                        <i className="fas fa-times"  style={{
                             color: 'red'
                         }}></i>
                     </button>

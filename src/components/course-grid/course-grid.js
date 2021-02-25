@@ -24,7 +24,7 @@ const CourseGrid = (props) =>
 
         <div className="row">
             {
-                props.courses.map((course) => <CourseCard key={course._id}
+                props.courses.reverse().map((course) => <CourseCard key={course._id}
                                              course={course}
                                              deleteCourse={props.deleteCourse}
                                              updateCourse={props.updateCourse} />
