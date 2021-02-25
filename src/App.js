@@ -8,11 +8,6 @@ function App() {
     return (
         <BrowserRouter>
             <div className="App">
-                <Link to="/" />
-                <Link to="/courses/editor" />
-                <Link to="/courses/manager" />
-                <Link to="/courses/table" />
-
                 <Switch>
                     <Route path="/courses/table">
                         <CourseManager />
