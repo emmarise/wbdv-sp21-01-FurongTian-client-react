@@ -10,7 +10,8 @@ const TopicPill = ({
     deleteTopic,
     createTopic,
     findTopicsForLesson,
-    resetTopics
+    resetTopics,
+    active
 }) => {
     const {layout, courseId, moduleId, lessonId} = useParams();
 
@@ -33,12 +34,7 @@ const TopicPill = ({
         {
             topics.map(t => 
                     <li className="nav-item" >
-                        <Link className="nav-link" 
-                            data-toggle="tab" 
-                            role="tab"
-                            key={t._id}
-                            to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${t._id}`}
-                            >
+                        <Link className="nav-link">
                             <EditableItem
                                 to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${t._id}`}
                                 item={t}
@@ -94,7 +90,7 @@ const dtpm = (dispatch) => {
             });
         },
         createTopic : (lessonId) => {
-            if (lessonId !== "undefined" && typeof lessonId !== "undefined") {
+            if (typeof lessonId !== "undefined") {
                 TopicService.createTopic(lessonId, {title : "New Topic"})
                 .then(data => {
                     dispatch({

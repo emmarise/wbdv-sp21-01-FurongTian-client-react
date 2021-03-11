@@ -10,19 +10,20 @@ const LessonTab = ({
     updateLesson,
     deleteLesson,
     createLesson,
-    resetLessons
+    resetLessons,
+    active
 }) => {
     const {layout, courseId, moduleId, lessonId} = useParams();
 
     useEffect(() => {
-        if (moduleId !== "undefined" && typeof moduleId !== "undefined")
+        if (typeof moduleId !== "undefined")
             findLessonsForModule(moduleId);
         else
             resetLessons([]);
     }, [moduleId]);
 
     useEffect(() => {
-        if (moduleId !== "undefined" && typeof moduleId !== "undefined")
+        if (typeof moduleId !== "undefined")
             findLessonsForModule(moduleId);
         else
             resetLessons([]);
@@ -32,12 +33,7 @@ const LessonTab = ({
         {
             lessons.map(l => 
                     <li className="nav-item" >
-                        <Link className="nav-link" 
-                            data-toggle="tab" 
-                            role="tab"
-                            key={l._id}
-                            to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${l._id}`}
-                            >
+                        <Link className="nav-link">
                             <EditableItem
                                 to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${l._id}`}
                                 item={l}
@@ -94,7 +90,7 @@ const dtpm = (dispatch) => {
             });
         },
         createLesson : (moduleId) => {
-            if (moduleId !== "undefined" && typeof moduleId !== "undefined") {
+            if (typeof moduleId !== "undefined") {
                 LessonService.createLesson(moduleId, {title : "New Lesson"})
                 .then(data => {
                     dispatch({

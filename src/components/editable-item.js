@@ -1,6 +1,9 @@
 import React, {useState} from 'react'
+// import "./course-editor/course-editor.style.client.css";
+import {Link} from "react-router-dom"
 
 const EditableItem = ({
+    to,
     item,
     updateItem,
     deleteItem,
@@ -13,8 +16,8 @@ const EditableItem = ({
             <span>
             {
                 !editing &&
-                <div className="row">
-                    <div className="col-8 align-self-center">{item.title}</div>
+                <div className="row ">
+                    <div className={`col-8 align-self-center link ${active ? 'active' : ''}`}>{item.title}</div>
                     <div className="col-4">
                     <button className="btn pull-right float-right"
                             onClick={() => setEditing(true)}>
@@ -22,6 +25,15 @@ const EditableItem = ({
                     </button>
                     </div>
                 </div>
+                // <li className={`list-group-item ${active ? 'active' : ''}`}>
+                //     <Link className="link" to={to}>
+                //         {item.title}
+                //     </Link>
+                //     <button className="btn float-right"
+                //             onClick={() => setEditing(true)}>
+                //         <i className="fas fa-edit"></i>
+                //     </button>
+                // </li>
             }
             {
                 editing &&

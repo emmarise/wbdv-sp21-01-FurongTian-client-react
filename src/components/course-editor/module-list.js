@@ -9,7 +9,8 @@ const ModuleList = ({
     findModulesForCourse,
     updateModule,
     deleteModule,
-    createModule
+    createModule,
+    active
 }) => {
     const {layout, courseId, moduleId} = useParams();
     useEffect(() => {
@@ -19,11 +20,8 @@ const ModuleList = ({
     return (
         <div className="list">
             {   
-                modules.map(m => 
-                    <Link className="list-group-item list-group-item-action rounded-0"
-                        role="tab"
-                        key={m._id}
-                        to={`/courses/${layout}/edit/${courseId}/modules/${m._id}`}>
+                modules.map(m =>
+                    <Link className="list-group-item list-group-item-action">
                         <EditableItem 
                             to={`/courses/${layout}/edit/${courseId}/modules/${m._id}`}
                             item={m}
@@ -79,7 +77,7 @@ const dtpm = (dispatch) => {
             })
         },
         createModule : (courseId) => {
-            if (courseId !== "undefined" && typeof courseId !== "undefined") {
+            if (typeof courseId !== "undefined") {
                 ModuleService.createModule(courseId, {title : "New Module"})
                 .then(data => {
                     dispatch({
