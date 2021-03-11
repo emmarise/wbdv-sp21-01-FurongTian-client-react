@@ -1,125 +1,94 @@
-import React from 'react'
-import CourseTable from "../course-table/course-table";
 import "./course-manager.style.client.css"
-import CourseGrid from "../course-grid/course-grid";
-import CourseEditor from "../course-editor/course-editor";
-import {Route} from "react-router-dom";
-import courseService from "../../services/course-service";
+import React, {useState, useEffect} from 'react'
+import CourseTable from "../course-table/course-table"
+import CourseGrid from "../course-grid/course-grid"
+import CourseService from "../../services/course-service"
+import {Link, Switch, Route} from "react-router-dom"
 
-class CourseManager extends React.Component {
-    state = {
-        title: "example title",
-        courses: [],
-        date: new Date(),
-    }
+const CourseManager = (props) => {
+    const [courseService, setCourseSevice] = useState(new CourseService());
+    let [courses, setCourses] = useState([]);
+    let [newCourseTitle, setNewCourseTitle] = useState("");
+    const [date, setDate] = useState(new Date());
 
-
-    updateCourse = (course) => {
-        courseService.updateCourse(course._id, course)
-            .then(status => this.setState((prevState) => ({
-                ...prevState,
-                courses: prevState.courses.map(
-                    (c) => c._id === course._id ? course : c)
-            })))
-    }
-
-    componentDidMount = () =>
+    // fetch all courses (on first render)
+    useEffect(() => {
         courseService.findAllCourses()
-            .then(courses => this.setState({courses}))
+            .then(data => {
+                setCourses([...data.reverse()]);
+            });
+    }, []);
 
-    addCourse = () => {
-        // first set empty title, to clear input
-        document.getElementById("new-course-title").value=""
-        const newCourse = {
-            title: this.state.title,
-            owner: "ME",
-            lastModified: this.state.date.getFullYear() + "/" + this.state.date.getMonth()
-                + "/" + this.state.date.getDate()
-        }
-        courseService.createCourse(newCourse)
-            .then(course => this.setState(
-                (prevState) => ({
-                    ...prevState,
-                    courses: [
-                        course,
-                        ...prevState.courses
-                    ]
-                })))
-    }
+    const handleCourseTitleChange = (event) => setNewCourseTitle(event.target.value);
 
-    deleteCourse = (course) => {
-        // console.log(course)
-        // alert("delete course " + course._id)
-        courseService.deleteCourse(course._id)
+    const deleteCourse = (courseId) => {
+        courseService.deleteCourse(courseId)
             .then(status => {
-                this.setState((prevState) => ({
-                    courses: prevState.courses.filter(c => c._id !== course._id)
-                }))
-            })
+                setCourses(courses.filter(c => c._id !== courseId));
+            });
     }
 
-    updateInputValue = (evt) => {
-        this.setState({
-            title: evt.target.value
-        });
+    const createCourse = () => {
+        let course = {
+            title : newCourseTitle,
+            lastModified : date.getFullYear() + "/" + date.getMonth() + "/" + date.getDate(),
+            owner : "New Owner"
+        }
+        courseService.createCourse(course)
+            .then(data => {
+                setNewCourseTitle("");
+                const temp = courses.slice();
+                temp.splice(0,0, data);
+                setCourses(temp);
+            });
     }
 
-    render() {
+    const updateCourse = (course) => {
+        courseService.updateCourse(course._id, course)
+            .then(status => {
+                let temp = courses.slice();
+                temp = temp.map(c => c._id === course._id ? course : c);
+                setCourses(temp);
+            });
+    }
+
         return(
             <div>
                 <nav className="navbar navbar-dark bg-primary justify-content-start fixed-top">
-                <span className="navbar-brand w-auto">
-                    <button className="btn btn-link btn-sm" type="button">
-                        <i className="fas fa-align-justify fa-2x"></i>
-                    </button>
-                    <span className="d-none d-lg-inline">Course Manager</span>
-                </span>
-                <span className="input-group w-75">
-                    <input type="text"
-                           className="mx-2 form-control rounded"
-                           placeholder="New Course Title"
-                           id="new-course-title"
-                           value={this.title}
-                           onChange={this.updateInputValue}
-                    />
-                    <span className="input-group-append">
-                        <button className="mx-2 btn btn-danger rounded-circle"
-                                onClick={this.addCourse}
-                                type="button">
-                        <i className="fas fa-plus"></i>
+                    <span className="navbar-brand w-auto">
+                        <button className="btn btn-link btn-sm" type="button">
+                            <i className="fas fa-align-justify fa-2x"></i>
                         </button>
+                        <span className="d-none d-lg-inline">Course Manager</span>
                     </span>
-                </span>
+                    <span className="input-group w-75">
+                        <input type="text"
+                               className="mx-2 form-control rounded"
+                               placeholder="New Course Title"
+                               id="new-course-title"
+                               value={newCourseTitle}
+                               onChange={handleCourseTitleChange}
+                        />
+                        <span className="input-group-append">
+                            <button className="mx-2 btn btn-danger rounded-circle"
+                                    onClick={createCourse}
+                                    type="button">
+                            <i className="fas fa-plus"></i>
+                            </button>
+                        </span>
+                    </span>
                 </nav>
 
-                {/*<Link to="/">*/}
-                {/*    <i className="fas fa-2x fa-home float-right"></i>*/}
-                {/*</Link>*/}
-                {/*<h1>Course Manager</h1>*/}
                 <div className="wbdv-padding-80px">
-                {/*<button onClick={this.addCourse}>Add Course</button>*/}
-
-                {/*two route, use <switch>???*/}
-                    <Route path="/courses/table">
-                        <CourseTable
-                            updateCourse={this.updateCourse}
-                            deleteCourse={this.deleteCourse}
-                            courses={this.state.courses}/>
-                    </Route>
                     <Route path="/courses/grid">
-                        <CourseGrid
-                            deleteCourse={this.deleteCourse}
-                            updateCourse={this.updateCourse}
-                            courses={this.state.courses}/>
+                        <CourseGrid courses={courses} deleteCourse={deleteCourse} updateCourse={updateCourse} />
                     </Route>
-
-                    <Route path="/courses/editor"
-                           render={(props) => <CourseEditor props={props}/>}>
+                    <Route path="/courses/table">
+                        <CourseTable courses={courses} deleteCourse={deleteCourse} updateCourse={updateCourse} />
                     </Route>
                 </div>
             </div>
         )
-    }
 }
 
 export default CourseManager

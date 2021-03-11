@@ -13,7 +13,7 @@ const CourseRow = (props) => {
             <td>
                 {
                     !isEditing &&
-                    <Link to="/courses/editor">
+                    <Link to={`/courses/table/edit/${props.course._id}`}>
                         <i className="fas fa-file"></i>
                         {courseTitle}
                     </Link>
@@ -55,7 +55,7 @@ const CourseRow = (props) => {
             </td>
 
             <td>
-                <i onClick={() => props.deleteCourse(props.course)} className="fas fa-trash"></i>
+                <i onClick={() => props.deleteCourse(props.course._id)} className="fas fa-trash"/>
                 {
                     !isEditing &&
                     <button className="btn" onClick={() => setEditing(true)}>

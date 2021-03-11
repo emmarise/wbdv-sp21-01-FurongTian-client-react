@@ -13,7 +13,7 @@ const Home = () =>
             Courses Grid
         </Link>
         <br/>
-        <Link to="/courses/editor" className="list-group-item">
+        <Link to="/courses/edit" className="list-group-item">
             Course Editor
         </Link>
     </div>
