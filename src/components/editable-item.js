@@ -16,24 +16,15 @@ const EditableItem = ({
             <span>
             {
                 !editing &&
-                <div className="row ">
-                    <div className={`col-8 align-self-center link ${active ? 'active' : ''}`}>{item.title}</div>
-                    <div className="col-4">
-                    <button className="btn pull-right float-right"
+                <li className={`list-group-item ${active ? 'active' : ''}`}>
+                    <Link className="link" to={to}>
+                        {item.title}
+                    </Link>
+                    <button className="btn float-right"
                             onClick={() => setEditing(true)}>
-                            <i className="fas fa-edit"></i>
+                        <i className="fas fa-edit"></i>
                     </button>
-                    </div>
-                </div>
-                // <li className={`list-group-item ${active ? 'active' : ''}`}>
-                //     <Link className="link" to={to}>
-                //         {item.title}
-                //     </Link>
-                //     <button className="btn float-right"
-                //             onClick={() => setEditing(true)}>
-                //         <i className="fas fa-edit"></i>
-                //     </button>
-                // </li>
+                </li>
             }
             {
                 editing &&

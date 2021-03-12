@@ -33,14 +33,13 @@ const LessonTab = ({
         {
             lessons.map(l => 
                     <li className="nav-item" >
-                        <Link className="nav-link">
-                            <EditableItem
-                                to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${l._id}`}
-                                item={l}
-                                updateItem={updateLesson}
-                                deleteItem={deleteLesson}
-                            />
-                        </Link>
+                        <EditableItem
+                            to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${l._id}`}
+                            item={l}
+                            updateItem={updateLesson}
+                            deleteItem={deleteLesson}
+                            active = {l._id === lessonId}
+                        />
                     </li>
             )
         }

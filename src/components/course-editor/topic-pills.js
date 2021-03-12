@@ -13,7 +13,7 @@ const TopicPill = ({
     resetTopics,
     active
 }) => {
-    const {layout, courseId, moduleId, lessonId} = useParams();
+    const {layout, courseId, moduleId, lessonId, topicId} = useParams();
 
     useEffect(() => {
         if (lessonId !== "undefined" && typeof lessonId !== "undefined")
@@ -34,14 +34,13 @@ const TopicPill = ({
         {
             topics.map(t => 
                     <li className="nav-item" >
-                        <Link className="nav-link">
-                            <EditableItem
-                                to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${t._id}`}
-                                item={t}
-                                updateItem={updateTopic}
-                                deleteItem={deleteTopic}
-                            />
-                        </Link>
+                        <EditableItem
+                            to={`/courses/${layout}/edit/${courseId}/modules/${moduleId}/lessons/${lessonId}/topics/${t._id}`}
+                            item={t}
+                            updateItem={updateTopic}
+                            deleteItem={deleteTopic}
+                            active = {t._id === topicId}
+                        />
                     </li>
             )
         }

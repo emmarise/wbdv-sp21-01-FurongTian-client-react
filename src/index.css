@@ -11,3 +11,15 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+.list-group-item.active {
+  z-index: 2;
+  color: #fff;
+  background-color: dodgerblue;
+  border-color: dodgerblue;
+}
+a {
+  color: black;
+  text-decoration: none;
+  background-color: transparent;
+}

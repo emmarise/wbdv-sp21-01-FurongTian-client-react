@@ -21,14 +21,13 @@ const ModuleList = ({
         <div className="list">
             {   
                 modules.map(m =>
-                    <Link className="list-group-item list-group-item-action">
-                        <EditableItem 
+                    <EditableItem
                             to={`/courses/${layout}/edit/${courseId}/modules/${m._id}`}
                             item={m}
                             updateItem={updateModule}
                             deleteItem={deleteModule}
+                            active = {m._id === moduleId}
                         />
-                    </Link>
                 )
             }
             <button
