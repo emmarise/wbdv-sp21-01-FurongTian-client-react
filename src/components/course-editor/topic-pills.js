@@ -1,6 +1,6 @@
 import React, {useEffect} from "react";
 import {connect} from "react-redux";
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import TopicService from "../../services/topic-service";
 import EditableItem from "../editable-item";
 
@@ -23,14 +23,14 @@ const TopicPill = ({
     }, [lessonId]);
 
     useEffect(() => {
-        console.log("called")
         if (lessonId !== "undefined" && typeof lessonId !== "undefined")
             findTopicsForLesson(lessonId);
         else
             resetTopics([]);
     }, [moduleId]);
 
-    return (<ul className="nav nav-fill nav-pills">
+    return (
+        <ul className="nav nav-fill nav-pills">
         {
             topics.map(t => 
                     <li className="nav-item" >
@@ -50,7 +50,8 @@ const TopicPill = ({
                 onClick = {() => {createTopic(lessonId)}}>
             <i className="fas fa-plus"></i>
         </button>
-    </ul>)
+        </ul>
+    )
 }
 
 const stpm = (state) => {
