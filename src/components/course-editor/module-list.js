@@ -1,8 +1,9 @@
 import React, {useEffect} from 'react'
 import {connect} from 'react-redux'
 import {Link, useParams} from "react-router-dom";
-import ModuleService from "../../services/module-service";
 import EditableItem from "../editable-item";
+import moduleActions from "../../actions/module-actions";
+
 
 const ModuleList = ({
     modules = [],
@@ -48,45 +49,11 @@ const stpm = (state) => {
 
 const dtpm = (dispatch) => {
     return {
-        findModulesForCourse : (courseId) => {
-            ModuleService.findModulesForCourse(courseId)
-            .then(data => {
-                dispatch({
-                    type : "FIND_MODULES_FOR_COURSE",
-                    modules : data
-                })
-            })
-        },
-        updateModule : (module) => {
-            ModuleService.updateModule(module._id, module)
-            .then(status => {
-                dispatch({
-                    type : "UPDATE_MODULE",
-                    module
-                })
-            })
-        },
-        deleteModule : (module) => {
-            ModuleService.deleteModule(module._id)
-            .then(status => {
-                dispatch({
-                    type : "DELETE_MODULE",
-                    moduleToDelete : module
-                })
-            })
-        },
-        createModule : (courseId) => {
-            if (typeof courseId !== "undefined") {
-                ModuleService.createModule(courseId, {title : "New Module"})
-                .then(data => {
-                    dispatch({
-                        type : "CREATE_MODULE",
-                        module : data
-                    })
-                })
-            } else
-            alert("Please select a course");
-        }
+        createModule: (courseId) => moduleActions.createModule(dispatch, courseId),
+        deleteModule: (item) => moduleActions.deleteModule(dispatch, item),
+        updateModule: (module) => moduleActions.updateModule(dispatch, module),
+        clear: () => moduleActions.clear(dispatch),
+        findModulesForCourse: (courseId) => moduleActions.findModulesForCourse(dispatch, courseId)
     }
 }
 

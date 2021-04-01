@@ -4,6 +4,8 @@ import {useParams} from "react-router-dom";
 import widgetService from "../../../services/widget-service";
 import HeadingWidget from "./heading-widget";
 import ParagraphWidget from "./paragraph-widget";
+import ListWidget from "./list-widget";
+import ImageWidget from "./image-widget";
 
 const WidgetList = (
     {
@@ -12,25 +14,37 @@ const WidgetList = (
         createWidgetForTopic,
         updateWidget,
         deleteWidget,
-        clear
+        resetWidgets
+        // clear
     }) => {
 
+    const HEADING = "HEADING";
+    const PARAGRAPH = "PARAGRAPH";
+    const LIST = "LIST";
+    const IMAGE = "IMAGE"
 
     const {layout, topicId, widgetId} = useParams();
     const [editingWidget, setEditingWidget] = useState({});
     // const [widgets, setWidgets] = useState([]);
 
+    // useEffect(() => {
+    //     if (topicId !== "undefined" && typeof topicId !== "undefined") {
+    //         clear().then(() => findWidgetsForTopic(topicId))
+    //     }
+    // }, [topicId])
+
     useEffect(() => {
-        if (topicId !== "undefined" && typeof topicId !== "undefined") {
-            clear().then(() => findWidgetsForTopic(topicId))
-        }
-    }, [topicId])
+        if (topicId !== "undefined" && typeof topicId !== "undefined")
+            findWidgetsForTopic(topicId);
+        else
+            resetWidgets([]);
+    }, [topicId]);
 
 
     return(
         <div>
             <i onClick={() => createWidgetForTopic(topicId)} className="fas fa-plus fa-2x float-right"></i>
-            <h2>Widget List ({widgets.length}) {editingWidget.id} </h2>
+            <h2>Widget List ({widgets.length}) </h2>
             <ul className="list-group">
                 {
                     widgets.map(widget =>
@@ -54,17 +68,33 @@ const WidgetList = (
                             {/*}*/}
 
                             {
-                              widget.type === "HEADING" &&
-                              <HeadingWidget
-                                  updateWidget={updateWidget}
-                                  deleteWidget={deleteWidget}
-                                  widget={widget}/>                            }
+                                widget.type === HEADING &&
+                                <HeadingWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
                             {
-                              widget.type === "PARAGRAPH" &&
-                              <ParagraphWidget
-                                  updateWidget={updateWidget}
-                                  deleteWidget={deleteWidget}
-                                  widget={widget}/>                            }
+                                widget.type === PARAGRAPH &&
+                                <ParagraphWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
+                            {
+                                widget.type === LIST &&
+                                <ListWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
+                            {
+                                widget.type === IMAGE &&
+                                <ImageWidget
+                                    updateWidget={updateWidget}
+                                    deleteWidget={deleteWidget}
+                                    widget={widget}/>
+                            }
                         </li>
                     )
                 }
@@ -118,6 +148,12 @@ const dtpm = (dispatch) => ({
                     widgets
                 });
             });
+    },
+    resetWidgets : (widgets) => {
+        dispatch({
+            type : "FIND_WIDGETS",
+            widgets
+        });
     }
 })
 

@@ -10,8 +10,7 @@ const LessonTab = ({
     updateLesson,
     deleteLesson,
     createLesson,
-    resetLessons,
-    active
+    resetLessons
 }) => {
     const {layout, courseId, moduleId, lessonId} = useParams();
 

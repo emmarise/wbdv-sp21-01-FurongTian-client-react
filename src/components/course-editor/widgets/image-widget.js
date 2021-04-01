@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import EditingWidget from "./editing-widget";
 
-const ParagraphWidget = (
+const ImageWidget = (
     {
         widget,
         deleteWidget,
@@ -15,16 +15,13 @@ const ParagraphWidget = (
             {
                 !editing &&
                 <>
-                    <div className="col">
-                        <p>
-                            {widget.text}
-                        </p>
-                    </div>
-
-                    <div className="col">
-                        <i onClick={() => setEditing(true)}
-                           className="fas fa-2x fa-cog float-right"></i>
-                    </div>
+                  <div className="col">
+                    <img src={widget.src} alt={widget.src} width={widget.width} height={widget.height}/>
+                  </div>
+                  <div className="col">
+                    <i onClick={() => setEditing(true)}
+                       className="fas fa-2x fa-cog float-right"></i>
+                  </div>
                 </>
             }
             {
@@ -39,4 +36,4 @@ const ParagraphWidget = (
     )
 }
 
-export default ParagraphWidget
+export default ImageWidget
