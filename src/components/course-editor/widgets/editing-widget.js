@@ -15,7 +15,7 @@ const EditingWidget = ({
 
     useEffect(() => {
         if (cachedItem.type === LIST)
-            setCachedItem({...cachedItem, ordered:false})
+            setCachedItem({...cachedItem, ordered:cachedItem.ordered})
     }, []);
 
     return (
@@ -82,21 +82,12 @@ const EditingWidget = ({
                 {
                     cachedItem.type === LIST &&
                     <>
-                        {/*<input*/}
-                        {/*    onChange={(e) =>*/}
-                        {/*        setCachedItem({...cachedItem, ordered: !cachedItem.ordered})}*/}
-                        {/*    value={widget.ordered}*/}
-                        {/*    type="checkbox"*/}
-                        {/*    id="order"/>*/}
-                        {/*<label for="order">Ordered</label>*/}
-
                         <input
                             checked={cachedItem.ordered}
                             onChange={(e) =>
                                 setCachedItem({...cachedItem, ordered: !cachedItem.ordered})}
 
                             type="checkbox"/> Ordered
-
                         <br/>
                         <textarea
                             rows={10}
