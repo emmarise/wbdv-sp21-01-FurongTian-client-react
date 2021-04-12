@@ -9,7 +9,7 @@ export const FIND_MODULES_FOR_COURSE = "FIND_MODULES_FOR_COURSE"
 
 export const createModule = (dispatch, courseId) => {
   if (courseId !== "undefined" && typeof courseId !== "undefined") {
-    moduleService.createModuleForCourse(courseId, {title: "New Module"})
+    moduleService.createModule(courseId, {title: "New Module"})
     .then(theActualModule => dispatch({
       type: CREATE_MODULE,
       module: theActualModule
