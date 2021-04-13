@@ -2,6 +2,8 @@ import CourseManager from "./components/course-manager/course-manager"
 import CourseEditor from "./components/course-editor/course-editor"
 import {Link, BrowserRouter, Switch, Route} from "react-router-dom";
 import Home from "./components/home"
+import QuizzesList from "./components/quizzes/quizzes-list";
+import Quiz from "./components/quizzes/quiz";
 import './App.css';
 
 function App() {
@@ -24,6 +26,12 @@ function App() {
                     </Route>
                     <Route path="/courses/grid" exact={true}>
                         <CourseManager />
+                    </Route>
+                    <Route path="/courses/:courseId/quizzes" exact={true}>
+                        <QuizzesList />
+                    </Route>
+                    <Route path="/courses/:courseId/quizzes/:quizId" exact={true}>
+                        <Quiz />
                     </Route>
                     <Route path="/">
                         <Home />

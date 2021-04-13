@@ -90,6 +90,11 @@ const CourseRow = (props) => {
                     </button>
                 }
             </td>
+            <td>
+                <Link to={`/courses/${props.course._id}/quizzes`}>
+                    <span>Quizzes</span>
+                </Link>
+            </td>
         </tr>
     )
 }
