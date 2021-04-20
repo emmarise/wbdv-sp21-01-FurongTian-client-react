@@ -17,7 +17,7 @@ const QuizzesList = () => {
             QuizService.findAllQuizzes()
                 .then(q => setQuizzes(q))
         }
-    }, [])
+    }, [courseId])
     return(
         <div>
             <h2>Quizzes</h2>
@@ -25,11 +25,19 @@ const QuizzesList = () => {
                 {
                     quizzes.map((quiz) => {
                         return(
-                            <Link
-                                to={`/courses/${courseId}/quizzes/${quiz._id}`}
-                                className="list-group-item">
-                                {quiz.title}
-                            </Link>
+                            <div className="list-group-item"
+                                key={quiz._id}>
+                                <Link
+                                    to={`/courses/${courseId}/quizzes/${quiz._id}`}>
+                                    {quiz.title}
+                                </Link>
+                                <br></br>
+                                <Link
+                                    to={`/courses/${courseId}/quizzes/${quiz._id}/attempts`}
+                                >
+                                    Attempts
+                                </Link>
+                            </div>
                         )
                     })
                 }
